@@ -16,7 +16,6 @@ struct GNZDA{
   String year;
   String month;
   String day;
-  String Status;   
 }gps;
 
      
@@ -42,8 +41,6 @@ void loop() {
          String month = inputString.substring(21,23);         
          String year=inputString.substring(24,28);          
          gps.hour = hour.toInt();
-         gps.minute = minute.toInt();
-         gps.second = second.toInt();       
          gps.UTC_Time = hour + ':' + minute + ':' + second;            
          int localHour = (gps.hour + LOCAL_AREA) % 24 ; // 转化成区域时间，北京为东八时区，utc小时+8即为区域时间。和24取余数         
          
