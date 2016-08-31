@@ -11,8 +11,6 @@ struct GNZDA{
   String UTC_Time;
   String localTime;
   int hour;
-  int minute;
-  int second; 
   String year;
   String month;
   String day;
