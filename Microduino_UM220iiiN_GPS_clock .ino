@@ -13,7 +13,9 @@ struct GNZDA{
   String hour;                         
   String minute;         
   String second;
-  int Hour;  
+  int Hour; 
+  int Minute;         
+  int Second; 
   String year;
   String month;
   String day; 
@@ -60,92 +62,169 @@ void loop() {
          gps.Year = year.toInt(); 
          
          boolean LEAP_YEAR = gps.Year % 400 == 0 || gps.Year % 100 != 0 && gps.Year % 4 == 0; //闰年标志位
-         Serial.println(LEAP_YEAR ); 
-         if((gps.Hour + LOCAL_AREA) >24)
-         {                                                
-                if(gps.Month==1 || gps.Month==3 || gps.Month==5 || gps.Month==7 || gps.Month==8 || gps.Month==10)   //除12月以外，31天数月份
-              {
-                if(gps.Day<31)  gps.Day++;
-                else
-                {
-                 gps.Day = 1;
-                 gps.Month ++;
-                }
-            }
-            else if(gps.Month==4 || gps.Month==6 || gps.Month==9 || gps.Month==11)      //除2月以外，30天数月份
-          {
-              if(gps.Day<30)  gps.Day++;
-                else
-              {
-                gps.Day = 1;
-               gps.Month++;
-              }
-        }
-           else if(gps.Month==2) //处理2月份
-        {
-          if((gps.Day==29) || (gps.Day==28 && LEAP_YEAR ==0))   //闰年2月29日 
-            {
-             gps.Day = 1;
-             gps.Month++;
-            }
-              else  gps.Day++;
-        }
-         else if(gps.Month==12)  //处理12月份
-       {
-         if(gps.Day<31)  gps.Day++;
-            else                        //岁末       
-           {       
-                gps.Day = 1;
-                gps.Month = 1;
-                gps.Year++;
-            }
-        }
-       }  
-        else
-       { 
-          if(gps.Hour <= LOCAL_AREA)
-        {              
-          if(gps.Month==2 || gps.Month==4 || gps.Month==6 || gps.Month==8 || gps.Month==9 || gps.Month==11) //  除1月以外，31天数月份
+         
+         int GPS_Hour_Tmp = gps.Hour + LOCAL_AREA;
+         
+         switch(gps.Month)
          {
-           if(gps.Day>1) gps.Day--;
-            else
-            {
-             gps.Day = 31;
-              gps.Month--;
-            }
-          }
-           else if(gps.Month==5 || gps.Month==7 || gps.Month==10 || gps.Month==12)       //除2月以外，30天数月份
-        {
-            if(gps.Day>1) gps.Day--;
-             else
-            {
-              gps.Day = 30;
-              gps.Month--;
-            }
-        }
-          else if(gps.Month==3) //前日2月底
-       {
-          if((gps.Day==1) && LEAP_YEAR ==0)         //不是闰年
-            {
-              gps.Day = 28;
-              gps.Month--;
-            }
-           else  gps.Day--;
-       }
-          else if(gps.Month==1) //跨年1月
-        {
-           if(gps.Day>1) gps.Day--;
-           else    //新年第一天
-            {       
-              gps.Day = 31;
-              gps.Month = 12;
-             gps.Year--;
-            }
-        }
-    }
-  }   
+            case 1:
+                if(GPS_Hour_Tmp >= 24)
+              {                   
+                   gps.Day += 1;
+                   if(gps.Day > 31)
+                {
+                   gps.Day -= 31;
+                   gps.Month += 1;
+                 }
+              }
+            break;
+            case 2:
+                if(GPS_Hour_Tmp >= 24)
+             {                  
+                   gps.Day += 1;
+                   if( LEAP_YEAR = 1)
+                 { 
+                   if(gps.Day > 29)
+                 {
+                   gps.Day -= 29;
+                   gps.Month += 1;  
+                  }
+               }
+               else
+              {
+                 
+                 if(gps.Day > 28)
+                 {
+                    gps.Day -= 28;
+                    gps.Month += 1;
+                  }
+            
+               }
+             }
+             break;      
+             case 3:
+                   if(GPS_Hour_Tmp >= 24)
+                 {                     
+                      gps.Day += 1;
+                      if(gps.Day > 31)
+                    {
+                       gps.Day -= 31;
+                       gps.Month += 1;
+                     }
+                  }
+               break;
+               case 4:
+               if(GPS_Hour_Tmp >= 24)
+              {                   
+                    gps.Day += 1;
+               if(gps.Day > 30)
+                {
+                      gps.Day -= 30;
+                      gps.Month += 1;
+                 }
+               }
+               break;
 
-                            
+               case 5:
+                if(GPS_Hour_Tmp >= 24)
+              {                
+                  gps.Day += 1;
+                  if(gps.Day > 31)
+                     {
+                         gps.Day -= 31;
+                         gps.Month += 1;
+                      }
+                }
+                break;
+
+               case 6:
+                 if(GPS_Hour_Tmp >= 24)
+               {                 
+                  gps.Day += 1;
+                  if(gps.Day > 30)
+                  {
+                   gps.Day -= 30;
+                   gps.Month += 1;
+                  }
+                }
+                break;
+
+                case 7:
+                if(GPS_Hour_Tmp >= 24)
+               {               
+                 gps.Day += 1;
+                 if(gps.Day > 31)
+                  {
+                    gps.Day -= 31;
+                    gps.Month += 1;
+                   }
+                 }
+                 break;
+
+                case 8:
+                if(GPS_Hour_Tmp >= 24)
+               {                   
+                   gps.Day += 1;
+                 if(gps.Day > 31)
+                 {
+                    gps.Day -= 31;
+                    gps.Month += 1;
+                  }
+                 }
+                break;
+
+                case 9:
+                if(GPS_Hour_Tmp >= 24)
+                {                  
+                   gps.Day += 1;
+                   if(gps.Day > 30)
+                   {
+                      gps.Day -= 30;
+                      gps.Month += 1;
+                    }
+                   }
+                  break;
+
+                  case 10:
+                  if(GPS_Hour_Tmp >= 24)
+                  {                     
+                     gps.Day += 1;
+                   if(gps.Day > 31)
+                   {
+                      gps.Day -= 31;
+                      gps.Month += 1;
+                    }
+                   }
+                   break;
+      
+                   case 11:
+                  if(GPS_Hour_Tmp >= 24)
+                  {                    
+                     gps.Day += 1;
+                   if(gps.Day > 30)
+                   {
+                     gps.Day -= 30;
+                     gps.Month += 1;
+                    }
+                   }
+                   break;
+
+                   case 12:
+                   if(GPS_Hour_Tmp >= 24)
+                   {                     
+                      gps.Day += 1;
+                    if(gps.Day > 31)
+                    {
+                       gps.Day -= 31;
+                       gps.Month = 1;
+                       gps.Year += 1;
+                     }
+                    }
+                    break;
+            default:
+            break;
+            }
+              
           u8g.firstPage();            
          do {  
          u8g.setFont(u8g_font_9x18B);
