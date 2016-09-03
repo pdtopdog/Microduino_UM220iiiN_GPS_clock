@@ -1,5 +1,6 @@
 #include "U8glib.h"
-#include <MemoryFree.h>
+#include <MemoryFree.h>;   //https://github.com/sudar/MemoryFree.git
+
 
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE);  
 
@@ -14,6 +15,8 @@ struct GNZDA{
   String minute;         
   String second;
   int Hour; 
+  int Minute;         
+  int Second; 
   String year;
   String month;
   String day; 
@@ -59,7 +62,7 @@ void loop() {
          gps.Month = month.toInt();         
          gps.Year = year.toInt(); 
          
-         boolean LEAP_YEAR = gps.Year % 400 == 0 || gps.Year % 100 != 0 && gps.Year % 4 == 0; //闰年标志位
+        boolean LEAP_YEAR = gps.Year % 400 == 0 || gps.Year % 100 != 0 && gps.Year % 4 == 0; //闰年标志位
          
          int GPS_Hour_Tmp = gps.Hour + LOCAL_AREA;
          
@@ -239,10 +242,14 @@ void loop() {
          u8g.print(gps.localTime);  
          }  
          while( u8g.nextPage() );                                                                                    
-     }              
+     } 
+                  
      inputString = "";
      stringComplete = false;
-     void free(GNZDA);     
+     boolean LEAP_YEAR = false;
+     int GPS_Hour_Tmp = 0;
+     memoryCheck();
+     //Serial.println(getFreeMemory());        
   }
 }
 
@@ -250,8 +257,9 @@ void serialEvent() {
    while (Serial1.available()>0){     
      char inChar =(char) Serial1.read();               
                inputString +=inChar;                                       
-          if (inChar == '\n') {      //等价于，不是等于，否则后续不能分离字符串。
-      stringComplete = true;
+          if (inChar == '\n') {      //等价于，不是等于，否则后续不能分离字符串。         
+      stringComplete = true;      
      }      
    }       
  }
+
