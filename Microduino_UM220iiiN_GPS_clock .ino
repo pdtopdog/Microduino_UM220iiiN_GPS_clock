@@ -238,7 +238,7 @@ void loop() {
          u8g.setPrintPos(85,35); 
          u8g.print(gps.Day);
          u8g.setFont(u8g_font_fub20);
-         u8g.setPrintPos(5,60);          
+         u8g.setPrintPos(8,60);          
          u8g.print(gps.localTime);  
          }  
          while( u8g.nextPage() );                                                                                    
