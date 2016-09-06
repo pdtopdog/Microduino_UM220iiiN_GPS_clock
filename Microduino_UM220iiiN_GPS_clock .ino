@@ -15,8 +15,6 @@ struct GNZDA{
   String minute;         
   String second;
   int Hour; 
-  int Minute;         
-  int Second; 
   String year;
   String month;
   String day; 
