@@ -14,7 +14,7 @@ struct GNZDA{
   String hour;                         
   String minute;         
   String second;
-  int Hour; 
+  int Hour;  
   String year;
   String month;
   String day; 
@@ -36,7 +36,7 @@ void setup() {
 void loop() {
         serialEvent();
         if(stringComplete){
-        //Serial.println(inputString);            
+       // Serial.println(inputString);            
         if (inputString.startsWith("$GNZDA")){                
          String UTC_Time = inputString.substring(7,17);                                                                        
          String hour=inputString.substring(7,9);                         
@@ -223,21 +223,45 @@ void loop() {
             default:
             break;
             }
+
+            /* 
+            * 基姆拉尔森计算公式
+            * W= (d+2*m+3*(m+1)/5+y+y/4-y/100+y/400) mod 7
+            */
+            if(gps.Month ==1||gps.Month ==2) {
+             gps.Month +=12;
+             gps.Year--;
+             }
+             int Weekday=(gps.Day+2*gps.Month +3*(gps.Month +1)/5+gps.Year+gps.Year/4-gps.Year/100+gps.Year/400)%7;  
               
           u8g.firstPage();            
          do {  
          u8g.setFont(u8g_font_9x18B);
          u8g.setPrintPos(5,15); 
          u8g.print("BEIJING TIME:");        
-         u8g.setPrintPos(20,35);    //年显示定位，先水平，后垂直。
+         u8g.setPrintPos(5,35);    //年显示定位，先水平，后垂直。
          u8g.print(gps.Year);
-         u8g.setPrintPos(65,35); 
+         u8g.setPrintPos(50,35); 
          u8g.print(gps.Month);
-         u8g.setPrintPos(85,35); 
-         u8g.print(gps.Day);
-         u8g.setFont(u8g_font_fub20);
-         u8g.setPrintPos(8,60);          
-         u8g.print(gps.localTime);  
+         u8g.setPrintPos(70,35); 
+         u8g.print(gps.Day);        
+                   
+          u8g.setPrintPos(90,35);    
+          switch(Weekday){
+          case 0: u8g.print( "MON");  break;
+          case 1: u8g.print( "TUE");  break;
+          case 2: u8g.print( "WED");  break;
+          case 3: u8g.print( "THUR"); break;
+          case 4: u8g.print( "FRI");  break;
+          case 5: u8g.print( "SAT");  break;
+          case 6: u8g.print( "SUN");  break;
+          default: break;
+         }   
+
+          u8g.setFont(u8g_font_fub20);
+          u8g.setPrintPos(8,60);          
+          u8g.print(gps.localTime);
+            
          }  
          while( u8g.nextPage() );                                                                                    
      } 
@@ -260,4 +284,3 @@ void serialEvent() {
      }      
    }       
  }
-
