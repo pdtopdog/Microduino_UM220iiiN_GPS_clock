@@ -9,18 +9,18 @@ boolean stringComplete = false;
 const int LOCAL_AREA = 8;
 
 struct GNZDA{
+  int Hour;
+  int Year;
+  int Month;
+  int Day;
   String UTC_Time;
   String localTime;
   String hour;                         
   String minute;         
-  String second;
-  int Hour;  
+  String second;    
   String year;
   String month;
-  String day; 
-  int Year;
-  int Month;
-  int Day;   
+  String day;      
 }gps;
 
      
