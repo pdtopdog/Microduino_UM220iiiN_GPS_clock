@@ -25,7 +25,7 @@ struct GNZDA{
      
 void setup() { 
   Serial.begin(115200);
-  while(!Serial1){           //必须这样写否则oled不显示。
+  while(!Serial1){           //用的644P,必须这样写否则oled不显示。
     ;
   }
   Serial1.begin(9600);  
