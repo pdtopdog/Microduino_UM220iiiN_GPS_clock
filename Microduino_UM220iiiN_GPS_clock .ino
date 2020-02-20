@@ -39,7 +39,7 @@ void loop() {
        // Serial.println(inputString);            
         if (inputString.startsWith("$GNZDA")){                
          String UTC_Time = inputString.substring(7,17);                                                                        
-         String hour=inputString.substring(7,9);                         
+         String hour = inputString.substring(7,9);                         
          String minute = inputString.substring(9,11);         
          String second = inputString.substring(11,13);
                  
