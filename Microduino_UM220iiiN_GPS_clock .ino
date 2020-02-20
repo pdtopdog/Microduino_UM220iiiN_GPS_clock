@@ -7,6 +7,7 @@ String inputString = "";
 boolean stringComplete = false;
 const int LOCAL_AREA = 8;
 
+//struct 相同数据类型写一起，int写string前面，省ram
 struct GNZDA{
   int Hour;
   int Year;
