@@ -279,7 +279,7 @@ void serialEvent() {
    while (Serial1.available()>0){     
      char inChar =(char) Serial1.read();               
                inputString +=inChar;                                       
-          if (inChar == '\n') {      //等价于，不是等于，否则后续不能分离字符串。         
+          if (inChar == '\n') {              
       stringComplete = true;      
      }      
    }       
